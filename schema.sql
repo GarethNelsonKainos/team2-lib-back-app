@@ -28,7 +28,7 @@ CREATE TABLE book_authors (
 
 CREATE TABLE book_copy (
   book_copy_id  SERIAL PRIMARY KEY,
-  status          TEXT
+  status          ENUM('available', 'borrowed', 'reserved', 'lost'),
   is_deleted      BOOLEAN DEFAULT FALSE,
   created_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   book_id         INTEGER NOT NULL REFERENCES books(book_id) ON DELETE RESTRICT
@@ -44,7 +44,7 @@ CREATE TABLE members (
   address_line2 TEXT,
   postcode      TEXT,
   city          TEXT,
-  status        TEXT,     
+  status        ENUM('active', 'inactive', 'banned'),
   is_deleted    BOOLEAN DEFAULT FALSE,
   created_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -56,8 +56,8 @@ CREATE TABLE borrowing_transactions (
   due_date        DATE,
   returned_date   DATE,
   late_fee_amount NUMERIC(10,2) DEFAULT 0.00,
-  return_condition TEXT,     -- e.g., excellent | good | fair | poor | damaged
-  status           TEXT,     -- e.g., borrowed | returned | overdue
+  return_condition ENUM('excellent', 'good', 'fair', 'poor', 'damaged'),     -- e.g., excellent | good | fair | poor | damaged
+  status           ENUM('borrowed', 'returned', 'overdue'),     -- e.g., borrowed | returned | overdue
   created_at       TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at       TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   member_id        INTEGER NOT NULL REFERENCES members(member_id),
