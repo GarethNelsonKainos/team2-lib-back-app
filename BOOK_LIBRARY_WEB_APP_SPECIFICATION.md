@@ -1,6 +1,6 @@
-Book Library Web App - Product Requirements Document
+# Book Library Web App - Product Requirements Document
 
-1. Product Overview
+## 1. Product Overview
 
 1.1 Purpose
 A web-based library management system that enables librarians to efficiently manage books, track member borrowing, and generate insights through statistical reporting.
@@ -12,7 +12,7 @@ Generate actionable insights through borrowing statistics
 Maintain accurate inventory of books and their copies
 Enforce borrowing limits and policies
 
-2. Core Features
+## 2. Core Features
 
 2.1 Book Management
 
@@ -28,7 +28,7 @@ Add Copies: Register multiple physical copies of the same book with unique copy 
 Track Copy Status: Monitor each copy's availability (Available, Borrowed)
 Copy History: View borrowing history for individual copies
 
-2.2 Member Management
+## 2.2 Member Management
 
 2.2.1 Member Registration
 Add Members: Register new members with name, contact information, address, member ID
@@ -41,7 +41,7 @@ Current Borrows: List of currently borrowed books with due dates
 Overdue Items: Highlight overdue books
 Borrowing Limits: Display current borrowing count against maximum allowed (3 books)
 
-2.3 Borrowing System
+## 2.3 Borrowing System
 
 2.3.1 Check-Out Process
 Book Search: Quick search for available books and copies
@@ -59,7 +59,7 @@ Maximum Books: 3 books per member at any time
 Loan Period: 14-day standard borrowing period
 Overdue Restrictions: Block new borrowing for members with overdue items
 
-2.4 Statistics & Reporting
+## 2.4 Statistics & Reporting
 
 2.4.1 Popular Books Analytics
 Weekly Reports: Most borrowed books in the past week
@@ -80,7 +80,7 @@ Inventory Status: Available vs. borrowed copies
 Member Compliance: Members at borrowing limits
 Collection Gaps: Identify popular books needing more copies
 
-3. User Interface Requirements
+## 3. User Interface Requirements
 
 3.1 Dashboard
 Overview Cards: Quick stats (total books, available copies, active members, overdue items)
@@ -102,7 +102,7 @@ Pagination: Handle large datasets efficiently
 Bulk Actions: Select multiple items for batch operations
 Export Options: CSV/PDF export for reports and lists
 
-4. Business Rules & Constraints
+## 4. Business Rules & Constraints
 
 4.1 Borrowing Constraints
 Maximum 3 books per member at any time
@@ -118,7 +118,7 @@ Copy IDs must be unique across entire collection
 Each member must have unique member ID
 Cannot delete members with active borrows
 
-5. Data Management
+## 5. Data Management
 
 5.1 Book Data Structure
 Book metadata (title, author, ISBN, genre, etc.)
@@ -135,7 +135,7 @@ Borrowing records (member, book copy, dates)
 Return records (condition, late fees)
 Statistical aggregation data for reporting
 
-6. Success Metrics
+## 6. Success Metrics
 
 6.1 Operational Efficiency
 Reduction in book checkout/return processing time
