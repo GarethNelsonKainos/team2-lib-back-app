@@ -16,7 +16,6 @@ CREATE TABLE books (
   isbn              VARCHAR(13) UNIQUE,            
   publication_year  INTEGER,
   is_removed        BOOLEAN DEFAULT FALSE,
-  author_id         INTEGER REFERENCES authors(author_id), 
   genre_id          INTEGER REFERENCES genres(genre_id)    
 );
 
@@ -27,9 +26,9 @@ CREATE TABLE book_authors (
   created_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE book_copies (
-  book_copies_id  SERIAL PRIMARY KEY,
-  status          TEXT DEFAULT 'available',  -- e.g., available | borrowed | maintenance | lost
+CREATE TABLE book_copy (
+  book_copy_id  SERIAL PRIMARY KEY,
+  status          TEXT
   is_deleted      BOOLEAN DEFAULT FALSE,
   created_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   book_id         INTEGER NOT NULL REFERENCES books(book_id) ON DELETE RESTRICT
@@ -39,13 +38,13 @@ CREATE TABLE members (
   member_id     SERIAL PRIMARY KEY,
   forename      TEXT,
   surname       TEXT,
-  email         TEXT,     -- add UNIQUE if you need to enforce unique emails
+  email         TEXT,     
   phone_number  TEXT,
   address_line1 TEXT,
   address_line2 TEXT,
   postcode      TEXT,
   city          TEXT,
-  status        TEXT,     -- e.g., active | suspended | expired
+  status        TEXT,     
   is_deleted    BOOLEAN DEFAULT FALSE,
   created_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -62,5 +61,5 @@ CREATE TABLE borrowing_transactions (
   created_at       TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at       TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   member_id        INTEGER NOT NULL REFERENCES members(member_id),
-  book_copies_id   INTEGER NOT NULL REFERENCES book_copies(book_copies_id) 
+  book_copy_id   INTEGER NOT NULL REFERENCES book_copy(book_copy_id) 
 );
