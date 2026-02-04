@@ -62,7 +62,6 @@ Overdue Restrictions: Block new borrowing for members with overdue items
 2.4 Statistics & Reporting
 
 2.4.1 Popular Books Analytics
-
 Weekly Reports: Most borrowed books in the past week
 Monthly Reports: Top books by borrowing frequency per month
 Annual Reports: Yearly borrowing trends and popular titles
@@ -70,14 +69,12 @@ Genre Analytics: Most popular genres by time period
 Author Analytics: Most borrowed authors
 
 2.4.2 Library Usage Statistics
-
 Member Activity: Active members, new registrations, borrowing patterns
 Collection Utilization: Books never borrowed, high-demand titles
 Borrowing Trends: Peak borrowing times, seasonal patterns
 Copy Efficiency: Utilization rate of multiple copies
 
 2.4.3 Operational Reports
-
 Overdue Summary: List of overdue books and members
 Inventory Status: Available vs. borrowed copies
 Member Compliance: Members at borrowing limits
