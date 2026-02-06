@@ -2,8 +2,51 @@ import db from "../db";
 import { Book } from "../types/types";
 
 export const getBooks = async (): Promise<Book[]> => {
-  const rows = await db.query("SELECT * FROM books WHERE is_removed = false");
-  return rows as Book[];
+  const result = await db.query(`
+
+    SELECT
+
+      b.book_id,
+
+      b.title,
+
+      b.isbn,
+
+      b.publication_year,
+
+      g.name as genre,
+
+      STRING_AGG(DISTINCT a.fullname, ', ') as author,
+
+      CASE
+
+        WHEN COUNT(CASE WHEN bc.status = 'available' AND bc.is_deleted = false THEN 1 END) > 0
+
+        THEN 'Available'
+
+        ELSE 'Unavailable'
+
+      END as availability
+
+    FROM books b
+
+    LEFT JOIN genres g ON b.genre_id = g.genre_id
+
+    LEFT JOIN book_authors ba ON b.book_id = ba.book_id
+
+    LEFT JOIN authors a ON ba.author_id = a.author_id
+
+    LEFT JOIN book_copy bc ON b.book_id = bc.book_id
+
+    WHERE b.is_removed = false
+
+    GROUP BY b.book_id, b.title, b.isbn, b.publication_year, g.name
+
+    ORDER BY b.book_id
+
+  `);
+
+  return result as Book[];
 };
 
 export const getBookById = async (id: number): Promise<Book | null> => {
