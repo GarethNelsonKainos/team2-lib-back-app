@@ -2,18 +2,16 @@ import db from "../db";
 import { Member } from "../types/types";
 
 export const getMembers = async (): Promise<Member[]> => {
-  const result = await db.query(
-    "SELECT * FROM members WHERE is_deleted = false",
-  );
-  return result as Member[];
+  const rows = await db.query("SELECT * FROM members WHERE is_deleted = false");
+  return rows as Member[];
 };
 
 export const getMemberById = async (id: number): Promise<Member | null> => {
-  const result = await db.query(
+  const rows = await db.query(
     "SELECT * FROM members WHERE member_id = $1 AND is_deleted = false",
     [id],
   );
-  return result.length > 0 ? (result[0] as Member) : null;
+  return rows.length > 0 ? (rows[0] as Member) : null;
 };
 
 export const createMember = async (
@@ -26,7 +24,7 @@ export const createMember = async (
   postcode: string,
   city: string,
 ): Promise<Member> => {
-  const result = await db.query(
+  const rows = await db.query(
     "INSERT INTO members (forename, surname, email, phone_number, address_line1, address_line2, postcode, city) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
     [
       forename,
@@ -39,7 +37,10 @@ export const createMember = async (
       city,
     ],
   );
-  return result[0] as Member;
+  if (rows.length === 0) {
+    throw new Error("Could not create member");
+  }
+  return rows[0] as Member;
 };
 
 export const updateMember = async (
@@ -64,7 +65,7 @@ export const updateMember = async (
     status,
   } = updatedMember;
 
-  const result = await db.query(
+  const rows = await db.query(
     "UPDATE members SET forename = $1, surname = $2, email = $3, phone_number = $4, address_line1 = $5, address_line2 = $6, postcode = $7, city = $8, status = $9 WHERE member_id = $10 RETURNING *",
     [
       forename,
@@ -80,13 +81,16 @@ export const updateMember = async (
     ],
   );
 
-  return result[0] as Member;
+  if (rows.length === 0) {
+    return null;
+  }
+  return rows[0] as Member;
 };
 
 export const deleteMember = async (id: number): Promise<boolean> => {
-  const result = await db.query(
+  const rows = await db.query(
     "UPDATE members SET is_deleted = true WHERE member_id = $1 RETURNING member_id",
     [id],
   );
-  return result.length > 0;
+  return rows.length > 0;
 };
