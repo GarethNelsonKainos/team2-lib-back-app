@@ -29,7 +29,13 @@ export const getBookById = async (req: Request, res: Response) => {
 
 export const createBook = async (req: Request, res: Response) => {
   try {
-    const newBook = await bookService.createBook(req.body);
+    const { title, isbn, publication_year, genre_id } = req.body;
+    const newBook = await bookService.createBook(
+      title,
+      isbn,
+      publication_year,
+      genre_id,
+    );
     res.status(201).json(newBook);
   } catch (error) {
     res.status(500).json({ message: "Error creating book" });
