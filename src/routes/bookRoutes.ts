@@ -1,0 +1,12 @@
+import { Router } from "express";
+import * as bookController from "../controllers/bookController";
+
+const router = Router();
+
+router.get("/", bookController.getBooks);
+router.get("/:id", bookController.getBookById);
+router.post("/", bookController.createBook);
+router.patch("/:id", bookController.updateBook);
+router.delete("/:id", bookController.setBookAsRemoved);
+
+export default router;
